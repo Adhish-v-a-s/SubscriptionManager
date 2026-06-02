@@ -120,7 +120,7 @@
         // READ OPERATION: Fetch collections data via API background thread layers
         async function loadSubscriptions() {
             const response = await fetch('/api/subscriptions');
-            cachedSubscriptions = await response.get_json();
+            cachedSubscriptions = await response.json();
             renderTable(cachedSubscriptions);
         }
 
@@ -180,7 +180,7 @@
                 body: JSON.stringify(payload)
             });
 
-            const resData = await response.get_json();
+            const resData = await response.json();
             if(resData.success) {
                 clearFormContext();
                 loadSubscriptions(); // Refresh UI array safely without viewport blink disruptions
@@ -212,7 +212,7 @@
         async function triggerDeleteLifecycle(id) {
             if(confirm("Are you sure you want to delete this subscription asset?")) {
                 const response = await fetch(`/api/subscriptions/${id}`, { method: 'DELETE' });
-                const result = await response.get_json();
+                const result = await response.json();
                 if(result.success) {
                     loadSubscriptions();
                 }
